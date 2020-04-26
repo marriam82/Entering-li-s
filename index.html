@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="small-container">
+    <h1>New Tab app</h1>
+    <form>
+        <input id="item" type="text" placeholder="new">
+    </form>
+    <h2>items</h2>
+    <ul></ul>
+    <button>clear</button>
+</div>
+    <script>
+        const form=document.querySelector('form')
+        const ul=document.querySelector('ul')
+        const button=document.querySelector('button')
+        const input=document.getElementById('item')
+
+        let Arry= [];
+        // console.log(Arry)
+        localStorage.setItem('items', JSON.stringify(Arry));
+        const data=JSON.parse(localStorage.getItem('items'));
+        
+        const liMaker =  (text) =>{
+            const li=document.createElement('li')
+            li.textContent=text;
+            ul.appendChild(li)
+        }
+        form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        Arry.push(input.value);
+        localStorage.setItem('items', JSON.stringify(Arry));
+        liMaker(input.value);
+        input.value="";
+        }
+        );
+       
+
+        data.forEach( item => {
+            liMaker(item);
+        })
+
+        button.addEventListener('click', function(){
+            localStorage.clear();
+            while(ul.firstChild){
+                ul.removeChild(ul.firstChild);
+            }
+            Array =[];
+        })
+
+</script>
+</body>
+</html>
